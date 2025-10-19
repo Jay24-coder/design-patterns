@@ -13,10 +13,27 @@ Design Patterns/
 ├── README.md           # This file
 ├── pyproject.toml      # Project configuration
 ├── main.py            # Main entry point
-└── pattern/           # Design pattern implementations
-    ├── facade_pattern.py    # Facade pattern implementation
-    └── strategy_pattern.py  # Strategy pattern implementation
+├── pattern/           # Design pattern implementations
+│   ├── __init__.py
+│   ├── facade_pattern.py    # Facade pattern implementation
+│   └── strategy_pattern.py  # Strategy pattern implementation
+└── examples/          # Usage examples and demonstrations
+    ├── __init__.py
+    ├── facade_example.py    # Facade pattern usage example
+    └── strategy_example.py  # Strategy pattern usage example
 ```
+
+### Folder Structure Explanation
+
+- **`pattern/`**: Contains the core design pattern implementations with all classes and interfaces
+- **`examples/`**: Contains demonstration code showing how to use the patterns from the `pattern/` folder
+- **`main.py`**: Entry point that can run all examples
+- **`pyproject.toml`**: Project configuration and dependencies
+
+The separation allows for:
+- **Clean implementation**: Pattern logic is separate from usage demonstrations
+- **Reusability**: Pattern implementations can be imported into multiple examples
+- **Educational value**: Clear distinction between "how to implement" vs "how to use"
 
 ## Design Patterns Implemented
 
@@ -34,6 +51,8 @@ The Facade pattern provides a simplified interface to a complex subsystem. In th
 
 #### Usage Example:
 ```python
+from pattern.facade_pattern import DVDPlayer, Projector, SoundSystem, HomeTheatreFacade
+
 # Create system components
 dvd = DVDPlayer()
 projector = Projector()
@@ -41,8 +60,8 @@ sound = SoundSystem()
 
 # Use the facade for simplified control
 theatre = HomeTheatreFacade(dvd=dvd, projector=projector, sound=sound)
-theatre.watchMovie()  # Automatically coordinates all components
-theatre.endMovie()    # Cleanly shuts down all components
+theatre.watch_movie()  # Automatically coordinates all components
+theatre.end_movie()    # Cleanly shuts down all components
 ```
 
 #### Benefits:
@@ -65,6 +84,13 @@ The Strategy pattern defines a family of algorithms, encapsulates each one, and 
 
 #### Usage Example:
 ```python
+from pattern.strategy_pattern import (
+    PaymentContext, 
+    CreditCardPayment, 
+    PayPalPayment, 
+    CryptoPayment
+)
+
 # Create payment context with credit card strategy
 context = PaymentContext(CreditCardPayment())
 context.make_payment(20)  # Pay $20 with credit card
@@ -100,42 +126,54 @@ context.make_payment(100)  # Pay $100 with cryptocurrency
 python main.py
 
 # Run the facade pattern example
-python pattern/facade_pattern.py
+python examples/facade_example.py
 
 # Run the strategy pattern example
-python pattern/strategy_pattern.py
+python examples/strategy_example.py
 ```
 
 ## Running the Examples
 
 ### Facade Pattern Example
 ```bash
-python pattern/facade_pattern.py
+python examples/facade_example.py
 ```
 
 Expected output:
 ```
+=== Facade Pattern Example: Home Theater System ===
+
+Starting movie experience...
 Facade: Setting up movie...
 Turning on the projector
 Sound System: Volume set to 30
 DVD Player: Playing movie
 
+Ending movie experience...
 Facade: Shutting down...
 DVD Player: Stopped
 Turning off the projector
 Turning off the sound system
+
+=== Facade Pattern Example Complete ===
 ```
 
 ### Strategy Pattern Example
 ```bash
-python pattern/strategy_pattern.py
+python examples/strategy_example.py
 ```
 
 Expected output:
 ```
+=== Strategy Pattern Example: Payment System ===
+
+Processing payments with different strategies:
+--------------------------------------------------
 Paying 20 with Credit Card
 Paying 40 with PayPal
 Paying 100 with Cryptocurrency
+
+=== Strategy Pattern Example Complete ===
 ```
 
 ## Contributing
@@ -151,9 +189,10 @@ This project is designed for educational purposes. Feel free to:
 Future implementations may include:
 - Singleton Pattern
 - Observer Pattern
-- Strategy Pattern
 - Factory Pattern
 - Builder Pattern
 - Command Pattern
 - Adapter Pattern
 - Decorator Pattern
+- Template Method Pattern
+- State Pattern
